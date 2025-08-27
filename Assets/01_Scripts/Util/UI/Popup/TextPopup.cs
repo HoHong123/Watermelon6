@@ -1,13 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Sirenix.OdinInspector;
-using PoolDispose = IPoolDispose<Util.UI.Popup.TextPopup>;
-using PoolReturn = IPoolReturn<Util.UI.Popup.TextPopup>;
-using System;
 
 namespace Util.UI.Popup {
-    public class TextPopup : BasePopupUi, PoolReturn, PoolDispose {
+    public class TextPopup : BasePopupUi, IPoolReturn, IPoolDispose {
         [Title("Texts")]
         [SerializeField]
         TMP_Text titleTxt;
@@ -43,13 +41,13 @@ namespace Util.UI.Popup {
         }
 
 
-        public void OnReturn(TextPopup mono) {
-            mono.titleTxt.text = string.Empty;
-            mono.bodyTxt.text = string.Empty;
+        public void OnReturn() {
+            titleTxt.text = string.Empty;
+            bodyTxt.text = string.Empty;
         }
 
-        public void OnDispose(TextPopup mono) {
-            Destroy(mono.panel);
+        public void OnDispose() {
+            Destroy(panel);
         }
     }
 }

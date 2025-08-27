@@ -1,5 +1,3 @@
-using UnityEngine;
-
-public interface IPoolGet<TMono> where TMono : MonoBehaviour {
-    public void OnGet(TMono mono);
+public interface IPoolGet {
+    public void OnGet();
 }
