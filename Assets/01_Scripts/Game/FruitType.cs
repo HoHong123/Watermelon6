@@ -2,8 +2,6 @@ public enum FruitType : int {
     None = 0,
     Blueberry,
     Cherry,
-    Clementine,
-    Kiwi,
     Lemon,
     Peach,
     Apple,
