@@ -112,11 +112,11 @@ namespace Melon.Game {
 
         private void _AddScore(FruitType type) {
             switch (type) {
-            case FruitType.Cherry: score += 10; break;
-            case FruitType.Lemon: score += 20; break;
-            case FruitType.Peach: score += 30; break;
-            case FruitType.Apple: score += 50; break;
-            case FruitType.Pear: score += 70; break;
+            case FruitType.Strawberry: score += 10; break;
+            case FruitType.Lime: score += 20; break;
+            case FruitType.Lemon: score += 30; break;
+            case FruitType.Peach: score += 50; break;
+            case FruitType.Apple: score += 70; break;
             case FruitType.Orange: score += 80; break;
             case FruitType.Mango: score += 100; break;
             case FruitType.Melon: score += 150; break;
