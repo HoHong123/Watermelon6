@@ -64,40 +64,42 @@ namespace Melon.Game {
             }
         }
 
-        #region Update check
-        private void FixedUpdate() {
-
-        }
-
-        #endregion
-
         #region Physic Event
         private void OnTriggerEnter2D(Collider2D other) => _CheckTriggerEnter(other);
         private void OnTriggerExit2D(Collider2D other) => _CheckTriggerExit(other);
 
         private void _CheckTriggerEnter(Collider2D other) {
-            Debug.Log("Trigger Enter");
+            Debug.Log("Trigger Enter", other.gameObject);
             if (!other.CompareTag("Fruit")) return;
             var fruit = other.GetComponent<FruitCtrl>();
             if (!overlaps.Contains(fruit)) {
-                if (fruit.DoneSpawn && overlaps.Count > 1) {
-                    Debug.Log("overlaps.Add");
-                    overlaps.Add(fruit);
+                Debug.Log($"Add Fruit [{fruit.name}]", other.gameObject);
+                overlaps.Add(fruit);
+                fruit.OnDoneSpawn += _CheckOverlapsSpawn;
+                if (fruit.DoneSpawn && overlaps.Count > 1)
                     StartDanger();
-                }
             }
         }
 
         private void _CheckTriggerExit(Collider2D other) {
-            Debug.Log("Trigger Exit");
+            Debug.Log("Trigger Exit", other.gameObject);
             if (!other.CompareTag("Fruit")) return;
             var fruit = other.GetComponentInParent<FruitCtrl>();
             if (overlaps.Contains(fruit)) {
-                Debug.Log("overlaps.Remove");
                 overlaps.Remove(fruit);
+                fruit.OnDoneSpawn -= _CheckOverlapsSpawn;
                 if (overlaps.Count == 0)
                     CancelDanger();
             }
+        }
+
+        private void _CheckOverlapsSpawn(FruitCtrl fruit) {
+            fruit.OnDoneSpawn -= _CheckOverlapsSpawn;
+            
+            if (!overlaps.Contains(fruit)) return;
+
+            if (overlaps.Count > 0)
+                StartDanger();
         }
         #endregion
 

@@ -25,7 +25,7 @@ namespace Melon.Game {
         public bool DoneSpawn { get; private set; }
         public bool IsMergeCooldownReady => (Time.time - lastMergeTime < mergeCooldown);
 
-        public event Action OnDoneSpawn;
+        public event Action<FruitCtrl> OnDoneSpawn;
 
 
         #region Pool
@@ -68,6 +68,7 @@ namespace Melon.Game {
 
         private void OnCollisionEnter2D(Collision2D collision) {
             DoneSpawn = true;
+            OnDoneSpawn?.Invoke(this);
 
             if (!collision.collider.CompareTag("Fruit")) return;
 

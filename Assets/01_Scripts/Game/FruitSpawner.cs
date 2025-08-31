@@ -50,15 +50,15 @@ namespace Melon.Game {
         private void _HandlePointer() {
 #if UNITY_EDITOR
             // Mouse
+            if (Input.GetMouseButtonDown(0) && currentFruit == null) {
+                _SpawnFruit();
+            }
+
             if (Input.GetMouseButton(0)) {
                 _FollowPointerX(Input.mousePosition);
             }
 
             if (spawnStop) return;
-
-            if (Input.GetMouseButtonDown(0) && currentFruit == null) {
-                _SpawnFruit();
-            }
 
             if (Input.GetMouseButtonUp(0)) {
                 _ActiveFruit();
