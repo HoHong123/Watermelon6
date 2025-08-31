@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 182870053}
   m_Layer: 0
   m_Name: B2D_MouseBoundary
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1434,7 +1434,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 3.6, z: 0}
-  m_LocalScale: {x: 8, y: 4, z: 1}
+  m_LocalScale: {x: 6, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 44938714}
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dangerSeconds: 5
-  col: {fileID: 917108659}
+  b2d: {fileID: 0}
   lineRender: {fileID: 44938713}
 --- !u!1 &1187248275
 GameObject:
