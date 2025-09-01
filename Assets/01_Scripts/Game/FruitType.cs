@@ -3,7 +3,7 @@ public enum FruitType : int {
     Blueberry,
     Strawberry,
     Lime,
-    Lemon,
+    Persimmon,
     Peach,
     Apple,
     Orange,

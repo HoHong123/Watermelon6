@@ -26,7 +26,6 @@ namespace Melon.Game {
 
 
         private void StartDanger() {
-            Debug.Log($"StartDanger");
             if (dangerActive) return;
             signal = new UniTaskCompletionSource<bool>();
             dangerActive = true;
@@ -35,7 +34,6 @@ namespace Melon.Game {
         }
 
         private void CancelDanger() {
-            Debug.Log($"CancelDanger");
             dangerActive = false;
             lineRender.SetActive(false);
             signal?.TrySetResult(true);
@@ -43,12 +41,10 @@ namespace Melon.Game {
         }
 
         private async UniTaskVoid Countdown() {
-            Debug.Log($"Countdown");
             bool? res = await Util.Async.Timer.Wait(
                 tcs: signal,
                 seconds: dangerSeconds,
                 ct: this.GetCancellationTokenOnDestroy(),
-                unscaled: true,
                 timing: PlayerLoopTiming.Update);
 
             signal = null;
@@ -65,15 +61,11 @@ namespace Melon.Game {
         }
 
         #region Physic Event
-        private void OnTriggerEnter2D(Collider2D other) => _CheckTriggerEnter(other);
-        private void OnTriggerExit2D(Collider2D other) => _CheckTriggerExit(other);
-
-        private void _CheckTriggerEnter(Collider2D other) {
-            Debug.Log("Trigger Enter", other.gameObject);
-            if (!other.CompareTag("Fruit")) return;
+        private void OnTriggerEnter2D(Collider2D other) {
+            if (!other.CompareTag("Fruit"))
+                return;
             var fruit = other.GetComponent<FruitCtrl>();
             if (!overlaps.Contains(fruit)) {
-                Debug.Log($"Add Fruit [{fruit.name}]", other.gameObject);
                 overlaps.Add(fruit);
                 fruit.OnDoneSpawn += _CheckOverlapsSpawn;
                 if (fruit.DoneSpawn && overlaps.Count > 1)
@@ -81,9 +73,9 @@ namespace Melon.Game {
             }
         }
 
-        private void _CheckTriggerExit(Collider2D other) {
-            Debug.Log("Trigger Exit", other.gameObject);
-            if (!other.CompareTag("Fruit")) return;
+        private void OnTriggerExit2D(Collider2D other) {
+            if (!other.CompareTag("Fruit"))
+                return;
             var fruit = other.GetComponentInParent<FruitCtrl>();
             if (overlaps.Contains(fruit)) {
                 overlaps.Remove(fruit);
@@ -94,10 +86,7 @@ namespace Melon.Game {
         }
 
         private void _CheckOverlapsSpawn(FruitCtrl fruit) {
-            fruit.OnDoneSpawn -= _CheckOverlapsSpawn;
-            
             if (!overlaps.Contains(fruit)) return;
-
             if (overlaps.Count > 0)
                 StartDanger();
         }

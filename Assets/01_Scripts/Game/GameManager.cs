@@ -93,10 +93,13 @@ namespace Melon.Game {
             Debug.Log("[GameManager] GAME OVER");
 
             foreach (var fruit in activeFruits) {
-                _AddScore(fruit.Type);
                 fruit.PhysicDeactive();
+            }
+
+            foreach (var fruit in activeFruits) {
+                _AddScore(fruit.Type);
                 fruit.gameObject.SetActive(false);
-                await UniTask.Delay(400);
+                await UniTask.Delay(200);
             }
 
             OnGameOverPPO?.Invoke();
@@ -114,7 +117,7 @@ namespace Melon.Game {
             switch (type) {
             case FruitType.Strawberry: score += 10; break;
             case FruitType.Lime: score += 20; break;
-            case FruitType.Lemon: score += 30; break;
+            case FruitType.Persimmon: score += 30; break;
             case FruitType.Peach: score += 50; break;
             case FruitType.Apple: score += 70; break;
             case FruitType.Orange: score += 80; break;
