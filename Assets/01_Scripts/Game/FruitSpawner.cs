@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,10 +6,6 @@ using Sirenix.OdinInspector;
 
 namespace Melon.Game {
     public class FruitSpawner : MonoBehaviour {
-        [Title("UI")]
-        [SerializeField]
-        List<GameObject> spawnIcons;
-
         [Title("Boundary")]
         [SerializeField]
         Transform spawnPoint;
@@ -50,7 +45,7 @@ namespace Melon.Game {
         private void _HandlePointer() {
 #if UNITY_EDITOR
             // Mouse
-            if (Input.GetMouseButtonDown(0) && currentFruit == null) {
+            if (!spawnStop && Input.GetMouseButtonDown(0) && currentFruit == null) {
                 _SpawnFruit();
             }
 
@@ -58,9 +53,7 @@ namespace Melon.Game {
                 _FollowPointerX(Input.mousePosition);
             }
 
-            if (spawnStop) return;
-
-            if (Input.GetMouseButtonUp(0)) {
+            if (currentFruit != null && Input.GetMouseButtonUp(0)) {
                 _ActiveFruit();
             }
 #elif UNITY_ANDROID || UNITY_IOS
@@ -90,7 +83,7 @@ namespace Melon.Game {
             Vector3 spawn = spawnPoint.position;
             spawn.x = Mathf.Lerp(spawn.x, targetX, Time.deltaTime * moveLerp);
             spawnPoint.position = spawn;
-            currentFruit.transform.position = spawn;
+            if (currentFruit != null) currentFruit.transform.position = spawn;
         }
 
         private float _ClampX(float x) {
@@ -112,8 +105,7 @@ namespace Melon.Game {
         }
 
         private void _SpawnFruit() {
-            //currentFruit = GameManager.Instance.GetRandomBasedOnScore();
-            currentFruit = GameManager.Instance.Get(FruitType.Pineapple);
+            currentFruit = GameManager.Instance.GetRandomBasedOnScore();
             currentFruit.transform.position = spawnPoint.position;
             currentFruit.transform.eulerAngles = Vector3.zero;
         }
