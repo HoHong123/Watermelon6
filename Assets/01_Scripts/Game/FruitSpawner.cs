@@ -12,7 +12,7 @@ namespace Melon.Game {
         [SerializeField]
         BoxCollider2D spawnBoundary;
         [SerializeField]
-        bool dropOnRelease = true;     // ¼Õ ¶¿ ¶§ µå¶ø(±ÇÀå)
+        bool dropOnRelease = true;     // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 
         [Title("Delay")]
         [SerializeField, PropertyRange(0, 2f)]
@@ -43,7 +43,7 @@ namespace Melon.Game {
 
 
         private void _HandlePointer() {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_WEBGL || PLATFORM_WEBGL
             // Mouse
             if (!spawnStop && Input.GetMouseButtonDown(0) && currentFruit == null) {
                 _SpawnFruit();
@@ -79,7 +79,7 @@ namespace Melon.Game {
             Vector3 world = cam.ScreenToWorldPoint(screenPos);
             float targetX = _ClampX(world.x);
 
-            // x º¸°£
+            // x ï¿½ï¿½ï¿½ï¿½
             Vector3 spawn = spawnPoint.position;
             spawn.x = Mathf.Lerp(spawn.x, targetX, Time.deltaTime * moveLerp);
             spawnPoint.position = spawn;
