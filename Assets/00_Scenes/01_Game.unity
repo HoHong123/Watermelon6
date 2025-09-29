@@ -2600,7 +2600,7 @@ MonoBehaviour:
   dropOnRelease: 1
   spawnDelay: 0.8
   spawnStop: 0
-  xPadding: 0.5
+  xPadding: 0.4
   moveLerp: 20
 --- !u!1 &1333761035
 GameObject:
