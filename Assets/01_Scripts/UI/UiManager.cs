@@ -9,6 +9,9 @@ namespace Melon.UI {
         [SerializeField]
         TMP_Text scoreTxt;
 
+        [Title("Game Panel")]
+
+
         private void Start() {
             GameManager game = GameManager.Instance;
             game.OnScoreChange += (score) => scoreTxt.text = score.ToString();
